@@ -5,7 +5,7 @@ import com.example.BackLookz.Repositories.ImagenRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ImagenService extends BaseService<Imagen, Long> {
+public class ImagenService extends BaseService<Imagen, Long, ImagenRepository> {
 
     public ImagenService(ImagenRepository repo) {
         super(repo);
