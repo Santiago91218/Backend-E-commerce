@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class DetalleService extends BaseService<Detalle, Long, DetalleRepository> {
-    public DetalleService(DetalleRepository repo) {
-        super(repo);
+    public DetalleService(DetalleRepository repository) {
+        super(repository);
     }
 }
