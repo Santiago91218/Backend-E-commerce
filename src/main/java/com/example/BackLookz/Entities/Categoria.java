@@ -10,13 +10,13 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name="categorias")
 public class Categoria extends Base{
 
     @NotNull(message = "El nombre no puede ser null")
     @NotBlank(message = "El nombre no puede estar vacio")
     private String nombre;
-
-    //falta relacion con producto
 
 }

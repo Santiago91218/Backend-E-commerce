@@ -2,23 +2,26 @@ package com.example.BackLookz.Entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "ordenes_compra_detalle")
 public class OrdenCompraDetalle extends Base {
 
     @ManyToOne
-    @JoinColumn(name = "id_orden_compra", nullable = false)
+    @JoinColumn(name = "orden_compra_id")
     private OrdenCompra ordenCompra;
 
-    @NotNull(message = "El ID del producto no puede ser null")
-    private Long idProducto;
+    @ManyToOne
+    @JoinColumn(name = "producto_id")
+    @NotNull(message = "Ingresa un producto válido")
+    private Producto producto;
 
-    @NotNull(message = "La cantidad no puede ser null")
-    @Min(value = 1, message = "La cantidad debe ser al menos 1")
-    private Integer cantidad;
+    private int cantidad;
+
 }

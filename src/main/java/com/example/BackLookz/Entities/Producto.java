@@ -2,6 +2,8 @@ package com.example.BackLookz.Entities;
 
 import com.example.BackLookz.Entities.enums.TipoProducto;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,20 +15,20 @@ import lombok.NoArgsConstructor;
 @Table(name="productos")
 public class Producto extends Base {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "nombre")
+    @NotNull(message = "Ingresa un nombre valido para el producto")
+    @NotBlank(message = "Ingresa un nombre valido para el producto")
     private String nombre;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @Column(name = "tipo_producto")
+    @NotNull(message = "Ingresa un tipo producto valido para el producto")
     private TipoProducto tipoProducto;
 
-    @Column(name = "sexo")
+    @NotNull(message = "Ingresa un sexo valido para el producto")
     private String sexo;
 
-    @Column(name = "id_categoria")
-    private Long idCategoria;
+    @NotNull(message = "Ingresa una categoria para el producto")
+    @Column(name = "categoria_id")
+    private Categoria categoria;
+
 }

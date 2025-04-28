@@ -14,11 +14,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Talle extends Base {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @NotNull(message = "El campo talle no puede ser null")
     @NotBlank(message = "El campo talle no puede estar vacio")
     private String talle;
+
 }
