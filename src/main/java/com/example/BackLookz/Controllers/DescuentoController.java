@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/descuentos") //"api" tenemos que modificarlo
+@RequestMapping("/descuentos")
 public class DescuentoController extends BaseController<Descuento, Long, DescuentoRepository, DescuentoService> {
 
     public DescuentoController(DescuentoService service) {

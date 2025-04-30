@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -17,6 +18,7 @@ public class Usuario extends Base{
 
     private String nombre;
 
+    @Column(name = "contraseña")
     private String contrasenia;
 
     @Enumerated(EnumType.STRING)
@@ -30,6 +32,6 @@ public class Usuario extends Base{
     private int dni;
 
     @ManyToMany(mappedBy = "usuarios")
-    private ArrayList<Direccion> direcciones = new ArrayList<>();
+    private List<Direccion> direcciones = new ArrayList<>();
 
 }

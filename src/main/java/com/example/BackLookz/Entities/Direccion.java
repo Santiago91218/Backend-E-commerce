@@ -34,10 +34,11 @@ public class Direccion extends Base{
 
     @NotNull(message = "El codigoPostal no puede ser null")
     @NotBlank(message = "El codigoPostal no puede estar vacio")
+    @Column(name = "codigo_postal")
     private String codigoPostal;
 
 
-   @ManyToMany(fetch = FetchType.LAZY)
+   @ManyToMany
     @JoinTable(
             name = "usuario_direccion",
             joinColumns = @JoinColumn(name = "usuario_id"),

@@ -13,7 +13,7 @@ import java.util.Optional;
 @RequestMapping("lookz")
 public abstract class BaseController<T,ID, Repo extends BaseRepository<T,ID>,Service extends BaseService<T,ID,Repo>>{
 
-    private final Service service;
+    protected final Service service;
 
     public BaseController(Service service) {
         this.service = service;

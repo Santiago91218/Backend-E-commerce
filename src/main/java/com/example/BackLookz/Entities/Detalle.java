@@ -15,19 +15,24 @@ import java.util.List;
 @AllArgsConstructor
 public class Detalle extends Base {
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @NotNull(message = "Ingresa un talle valido")
     @JoinColumn(name = "talle_id")
     private Talle talle;
 
     private int stock;
 
-    @Column(name = "producto_id")
+    @ManyToOne
+    @JoinColumn(name = "producto_id")
     private Producto producto;
 
     private String color;
 
     private boolean estado;
+
+    @OneToOne
+    @JoinColumn(name = "precio_id")
+    private Precio precio;
 
     @OneToMany(mappedBy = "detalle", orphanRemoval = true)
     private List<Imagen> imagenes = new ArrayList<>();

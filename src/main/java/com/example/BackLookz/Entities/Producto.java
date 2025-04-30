@@ -1,5 +1,6 @@
 package com.example.BackLookz.Entities;
 
+import com.example.BackLookz.Entities.enums.Sexo;
 import com.example.BackLookz.Entities.enums.TipoProducto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -24,11 +25,13 @@ public class Producto extends Base {
     @NotNull(message = "Ingresa un tipo producto valido para el producto")
     private TipoProducto tipoProducto;
 
+    @Enumerated(EnumType.STRING)
     @NotNull(message = "Ingresa un sexo valido para el producto")
-    private String sexo;
+    private Sexo sexo;
 
+    @ManyToOne
     @NotNull(message = "Ingresa una categoria para el producto")
-    @Column(name = "categoria_id")
+    @JoinColumn(name = "categoria_id")
     private Categoria categoria;
 
 }

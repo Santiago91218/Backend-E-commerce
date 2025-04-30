@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/imagenes") //"api" tenemos que modificarlo
+@RequestMapping("/imagenes")
 public class ImagenController extends BaseController<Imagen, Long, ImagenRepository, ImagenService> {
 
     public ImagenController(ImagenService service) {
