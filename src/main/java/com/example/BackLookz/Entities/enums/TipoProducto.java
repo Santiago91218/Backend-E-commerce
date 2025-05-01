@@ -2,6 +2,6 @@ package com.example.BackLookz.Entities.enums;
 
 public enum TipoProducto {
 
-    ROPA, ZAPATILLAS
+    REMERA, ZAPATILLAS,BUZO,PANTALON,CAMPERA
 
 }

@@ -1,6 +1,7 @@
 package com.example.BackLookz.Entities;
 
 import com.example.BackLookz.Entities.enums.TipoUsuario;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;

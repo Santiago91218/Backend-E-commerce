@@ -1,11 +1,14 @@
 package com.example.BackLookz.Controllers;
 
+import com.example.BackLookz.DTO.DetalleDTO;
 import com.example.BackLookz.Entities.Detalle;
 import com.example.BackLookz.Repositories.DetalleRepository;
 import com.example.BackLookz.Services.DetalleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/detalles")
@@ -22,6 +25,26 @@ public class DetalleController extends BaseController<Detalle, Long, DetalleRepo
             return ResponseEntity.ok("Stock agregado correctamente.");
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Error al agregar stock: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/DTO/{id}")
+    public ResponseEntity<?> obtenerDetallePorId(@PathVariable Long id) {
+        try {
+            DetalleDTO detalleDTO = service.obtenerDetalleDTO(id);
+            return ResponseEntity.ok(detalleDTO);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error al obtener detalleDTO: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/DTO")
+    public ResponseEntity<?> obtenerTodosLosDetalles() {
+        try {
+            List<DetalleDTO> detalles = service.obtenerTodosLosDetalleDTO();
+            return ResponseEntity.ok(detalles);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error al obtener los detalles: " + e.getMessage());
         }
     }
 

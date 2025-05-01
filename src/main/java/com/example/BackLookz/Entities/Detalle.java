@@ -1,5 +1,7 @@
 package com.example.BackLookz.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -32,9 +34,13 @@ public class Detalle extends Base {
 
     @OneToOne
     @JoinColumn(name = "precio_id")
+    @JsonIgnore
     private Precio precio;
 
     @OneToMany(mappedBy = "detalle", orphanRemoval = true)
+    @JsonManagedReference
     private List<Imagen> imagenes = new ArrayList<>();
+
+    private String descripcion;
 
 }

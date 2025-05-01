@@ -1,5 +1,6 @@
 package com.example.BackLookz.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -14,17 +15,16 @@ import lombok.NoArgsConstructor;
 @Table(name="imagenes")
 public class Imagen extends Base {
 
-    @Column(length = 700)
     @NotNull(message = "Ingresa una url valida de la imagen")
     @NotBlank(message = "Ingresa una url valida de la imagen")
     private String url;
 
-    @Column(length = 100)
     private String alt;
 
     @ManyToOne
     @NotNull(message = "Ingresa un detalle valido para la imagen")
     @JoinColumn(name = "detalle_id")
+    @JsonBackReference
     private Detalle detalle;
 
 }

@@ -1,5 +1,6 @@
 package com.example.BackLookz.Services;
 
+import com.example.BackLookz.Entities.Base;
 import com.example.BackLookz.Repositories.BaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,11 +57,28 @@ public abstract class BaseService<T,ID,Repo extends BaseRepository<T,ID>> {
         }
     }
 
-    public void eliminarPorId(ID id) throws Exception {
+    /*public void eliminarPorId(ID id) throws Exception {
         try{
             repository.deleteById(id);
         }catch (Exception e){
             throw new Exception("Error al eliminar: "+e.getMessage());
+        }
+    }*/
+
+    public void eliminarPorId(ID id) throws Exception {
+        try {
+            Optional<T> entidadOpt = repository.findById(id);
+            if (entidadOpt.isPresent()) {
+                T entidad = entidadOpt.get();
+                if (entidad instanceof Base) {
+                    ((Base) entidad).setDisponible(false);
+                }
+                repository.save(entidad);
+            } else {
+                throw new Exception("No se encontro el id");
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al cambiar el estado de disponibilidad: " + e.getMessage());
         }
     }
 
