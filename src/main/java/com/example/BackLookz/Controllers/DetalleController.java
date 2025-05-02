@@ -2,9 +2,9 @@ package com.example.BackLookz.Controllers;
 
 import com.example.BackLookz.DTO.DetalleDTO;
 import com.example.BackLookz.Entities.Detalle;
+import com.example.BackLookz.Entities.enums.GeneroProducto;
 import com.example.BackLookz.Repositories.DetalleRepository;
 import com.example.BackLookz.Services.DetalleService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +25,16 @@ public class DetalleController extends BaseController<Detalle, Long, DetalleRepo
             return ResponseEntity.ok("Stock agregado correctamente.");
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Error al agregar stock: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("genero-producto")
+    public ResponseEntity<?> filtrarPorSexo(@RequestParam GeneroProducto generoProducto){
+        try{
+            List<DetalleDTO> productos = service.filtrarPorSexo(generoProducto);
+            return ResponseEntity.ok(productos);
+        }catch (Exception e){
+            return ResponseEntity.status(500).body("Error al filtrar por sexo: "+e.getMessage());
         }
     }
 

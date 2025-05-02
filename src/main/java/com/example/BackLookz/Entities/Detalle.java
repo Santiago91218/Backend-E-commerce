@@ -34,7 +34,6 @@ public class Detalle extends Base {
 
     @OneToOne
     @JoinColumn(name = "precio_id")
-    @JsonIgnore
     private Precio precio;
 
     @OneToMany(mappedBy = "detalle", orphanRemoval = true)

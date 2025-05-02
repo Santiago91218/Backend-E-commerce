@@ -3,6 +3,7 @@ package com.example.BackLookz.Services;
 import com.example.BackLookz.DTO.DetalleDTO;
 import com.example.BackLookz.Entities.Detalle;
 import com.example.BackLookz.Entities.Imagen;
+import com.example.BackLookz.Entities.enums.GeneroProducto;
 import com.example.BackLookz.Repositories.DetalleRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +30,20 @@ public class DetalleService extends BaseService<Detalle, Long, DetalleRepository
 
     }
 
+    @Transactional
+    public List<DetalleDTO> filtrarPorSexo(GeneroProducto generoProducto) throws Exception{
+        try{
+           List<Detalle> detalles = repository.findBySexo(generoProducto);
+            return detalles.stream()
+                    .map(this::convertirADTO)
+                    .collect(Collectors.toList());
+        }catch (Exception e){
+            throw new Exception("Error al filtrar por sexo: "+e.getMessage());
+        }
+    }
+
+
+
     public DetalleDTO obtenerDetalleDTO(Long id) throws Exception {
 
         Optional<Detalle> detalleOpt = repository.findById(id);
@@ -48,6 +63,7 @@ public class DetalleService extends BaseService<Detalle, Long, DetalleRepository
         }
 
         DetalleDTO detalleDTO = new DetalleDTO();
+        detalleDTO.setId(detalle.getId());
         detalleDTO.setProducto(detalle.getProducto());
         detalleDTO.setPrecio(detalle.getPrecio());
         detalleDTO.setImagenPrincipal(imagenPrincipal);
@@ -64,6 +80,7 @@ public class DetalleService extends BaseService<Detalle, Long, DetalleRepository
 
     public DetalleDTO convertirADTO(Detalle detalle) {
         DetalleDTO dto = new DetalleDTO();
+        dto.setId(detalle.getId());
         dto.setProducto(detalle.getProducto());
         dto.setPrecio(detalle.getPrecio());
 
