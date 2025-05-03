@@ -3,6 +3,7 @@ package com.example.BackLookz.Controllers;
 import com.example.BackLookz.DTO.DetalleDTO;
 import com.example.BackLookz.Entities.Detalle;
 import com.example.BackLookz.Entities.enums.GeneroProducto;
+import com.example.BackLookz.Entities.enums.TipoProducto;
 import com.example.BackLookz.Repositories.DetalleRepository;
 import com.example.BackLookz.Services.DetalleService;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,16 @@ public class DetalleController extends BaseController<Detalle, Long, DetalleRepo
             return ResponseEntity.ok(productos);
         }catch (Exception e){
             return ResponseEntity.status(500).body("Error al filtrar por sexo: "+e.getMessage());
+        }
+    }
+
+    @GetMapping("relacionados")
+    public ResponseEntity<?> filtrarProductosRelacionados(TipoProducto tipo, GeneroProducto genero,Long id) {
+        try{
+            List<DetalleDTO> productos = service.filtrarProductosRelacionados(tipo,genero,id);
+            return ResponseEntity.ok(productos);
+        }catch (Exception e){
+            return  ResponseEntity.status(500).body("Error al filtrar por relacionados: "+e.getMessage());
         }
     }
 

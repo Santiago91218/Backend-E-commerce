@@ -4,10 +4,10 @@ import com.example.BackLookz.DTO.DetalleDTO;
 import com.example.BackLookz.Entities.Detalle;
 import com.example.BackLookz.Entities.Imagen;
 import com.example.BackLookz.Entities.enums.GeneroProducto;
+import com.example.BackLookz.Entities.enums.TipoProducto;
 import com.example.BackLookz.Repositories.DetalleRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -19,7 +19,6 @@ public class DetalleService extends BaseService<Detalle, Long, DetalleRepository
         super(repository);
     }
 
-
     @Transactional
     public void agregarStock(Long idDetalle, int cantidadStock) throws Exception{
     try{
@@ -27,7 +26,6 @@ public class DetalleService extends BaseService<Detalle, Long, DetalleRepository
     }catch (Exception e){
         throw new Exception("Error al agregar stock: "+e.getMessage());
     }
-
     }
 
     @Transactional
@@ -42,6 +40,17 @@ public class DetalleService extends BaseService<Detalle, Long, DetalleRepository
         }
     }
 
+    @Transactional
+    public List<DetalleDTO> filtrarProductosRelacionados(TipoProducto tipo, GeneroProducto genero,Long id) throws Exception{
+        try{
+            List<Detalle> detalles = repository.findByRelacionados(tipo,genero,id);
+            return detalles.stream()
+                    .map(this::convertirADTO)
+                    .collect(Collectors.toList());
+        }catch (Exception e){
+            throw new Exception("Error al filtrar relacionados: "+e.getMessage());
+        }
+    }
 
 
     public DetalleDTO obtenerDetalleDTO(Long id) throws Exception {
