@@ -19,4 +19,6 @@ public class Categoria extends Base{
     @NotBlank(message = "El nombre no puede estar vacio")
     private String nombre;
 
+    private String descripcion;
+
 }
