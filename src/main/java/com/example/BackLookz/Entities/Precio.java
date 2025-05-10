@@ -1,8 +1,6 @@
 package com.example.BackLookz.Entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,10 +8,21 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name="precios")
 public class Precio extends Base {
-    private float precio_compra;
-    private float precio_venta;
 
-    // falta relacion con detalle y descuento
+    @NotNull(message = "Ingresa un precio compra del producto")
+    @Column(name = "precio_compra")
+    private Double precioCompra;
+
+    @NotNull(message = "Ingresa un precio venta del producto")
+    @Column(name = "precio_venta")
+    private Double precioVenta;
+
+    @ManyToOne
+    @JoinColumn(name = "descuento_id")
+    private Descuento descuento;
+
 }
