@@ -2,8 +2,6 @@ package com.example.BackLookz.Controllers;
 
 import com.example.BackLookz.Repositories.BaseRepository;
 import com.example.BackLookz.Services.BaseService;
-import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;

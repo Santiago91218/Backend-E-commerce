@@ -4,7 +4,6 @@ import com.example.BackLookz.DTO.PrecioDTO;
 import com.example.BackLookz.Entities.Precio;
 import com.example.BackLookz.Repositories.PrecioRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
 

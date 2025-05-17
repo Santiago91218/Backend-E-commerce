@@ -3,7 +3,6 @@ package com.example.BackLookz.Repositories;
 import com.example.BackLookz.Entities.Categoria;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 @Repository
