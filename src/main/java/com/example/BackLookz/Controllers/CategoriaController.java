@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RequestMapping("categorias")
+
 @RestController
+@RequestMapping("categorias")
 public class CategoriaController extends BaseController<Categoria,Long, CategoriaRepository, CategoriaService> {
 
     public CategoriaController(CategoriaService service) {
