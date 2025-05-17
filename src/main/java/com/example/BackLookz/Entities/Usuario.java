@@ -24,7 +24,7 @@ public class Usuario extends Base implements UserDetails {
 
     private String nombre;
 
-    @Column(name = "contraseña")
+    @Column(name = "contrasenia")
     private String contrasenia;
 
     @Enumerated(EnumType.STRING)
