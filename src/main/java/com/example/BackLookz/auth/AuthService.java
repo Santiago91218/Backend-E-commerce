@@ -20,29 +20,36 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder; //ESTO LO AGREGO PARA HASHEAR LA CONTRASEÑA
 
     public AuthResponse login(LoginRequest request) {
-        // Autenticamos con Spring Security
+        //Validamos credenciales con Spring Security
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getContrasenia())
+                new UsernamePasswordAuthenticationToken(
+                        request.getEmail(),
+                        request.getContrasenia()
+                )
         );
 
-        // Buscamos el usuario en el repositorio por nombre (email)
+        //Buscamos al usuario en la base de datos por email
         Usuario usuario = usuarioRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
 
-        // Generamos el token JWT
+        //Generamos un token JWT para ese usuario
         String jwtToken = jwtService.getToken(usuario);
 
-        // Retornamos el token envuelto en la respuesta
-        return new AuthResponse(jwtToken);
+        //Devolvemos el token y el usuario completo al frontend
+        return AuthResponse.builder()
+                .token(jwtToken)
+                .usuario(usuario)
+                .build();
     }
     public AuthResponse register(RegisterRequest request) {
         Usuario usuario = Usuario.builder()
                 .nombre(request.getNombre())
                 .email(request.getEmail())
                 .contrasenia(passwordEncoder.encode(request.getContrasenia()))
-                .rol(TipoUsuario.USER) // o ADMINISTRADOR / CLIENTE según el caso
+                .rol(TipoUsuario.CLIENTE) // o ADMINISTRADOR / CLIENTE según el caso
                 .dni(request.getDni())
                 .build();
+        usuario.setDisponible(true);
         usuarioRepository.save(usuario);
 
         String jwtToken = jwtService.getToken(usuario);
@@ -52,4 +59,3 @@ public class AuthService {
                 .build();
     }
 }
-

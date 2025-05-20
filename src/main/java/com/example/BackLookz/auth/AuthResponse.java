@@ -1,5 +1,6 @@
 package com.example.BackLookz.auth;
 
+import com.example.BackLookz.Entities.Usuario;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,5 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AuthResponse {
-    String token;
+    private String token;
+    private Usuario usuario;
 }
