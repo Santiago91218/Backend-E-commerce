@@ -1,5 +1,6 @@
 package com.example.BackLookz.Services;
 
+import com.example.BackLookz.DTO.UsuarioDTO;
 import com.example.BackLookz.Entities.Direccion;
 import com.example.BackLookz.Entities.Usuario;
 import com.example.BackLookz.Repositories.DireccionRepository;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UsuarioService extends BaseService<Usuario,Long, UsuarioRepository>{
@@ -38,6 +40,61 @@ public class UsuarioService extends BaseService<Usuario,Long, UsuarioRepository>
 
         usuario.setDirecciones(direccionesUser);
         return repository.save(usuario);
+    }
+
+
+    public UsuarioDTO obtenerUsuarioDTO(Long id) throws Exception {
+
+        Optional<Usuario> usuarioOpt = repository.findById(id);
+
+        if(!usuarioOpt.isPresent()){
+            throw new Exception("No se encotro el usuario");
+        }
+
+        Usuario usuario = usuarioOpt.get();
+
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+        usuarioDTO.setId(usuario.getId());
+        usuarioDTO.setNombre(usuario.getNombre());
+        usuarioDTO.setEmail(usuario.getEmail());
+        usuarioDTO.setRol(usuario.getRol());
+
+        return usuarioDTO;
+    }
+
+    public List<UsuarioDTO> obtenerTodosLosUsuariosDTO() {
+        List<Usuario> usuarios = repository.findAll();
+        return usuarios.stream()
+                .map(this::convertirADTO)
+                .collect(Collectors.toList());
+    }
+
+    public UsuarioDTO actualizarUsuarioDTO(UsuarioDTO dto) throws Exception {
+        Optional<Usuario> usuarioOpt = repository.findById(dto.getId());
+
+        if (!usuarioOpt.isPresent()) {
+            throw new Exception("Usuario no encontrado");
+        }
+
+        Usuario usuario = usuarioOpt.get();
+
+        usuario.setNombre(dto.getNombre());
+        usuario.setEmail(dto.getEmail());
+        usuario.setRol(dto.getRol());
+
+        Usuario actualizado = repository.save(usuario);
+
+        return convertirADTO(actualizado);
+    }
+
+    public UsuarioDTO convertirADTO(Usuario usuario) {
+        UsuarioDTO dto = new UsuarioDTO();
+        dto.setId(usuario.getId());
+        dto.setNombre(usuario.getNombre());
+        dto.setEmail(usuario.getEmail());
+        dto.setRol(usuario.getRol());
+
+        return dto;
     }
 
 }

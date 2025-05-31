@@ -82,6 +82,7 @@ public class DetalleService extends BaseService<Detalle, Long, DetalleRepository
 
         DetalleDTO detalleDTO = new DetalleDTO();
         detalleDTO.setId(detalle.getId());
+        detalleDTO.setDisponible(detalle.isDisponible());
         detalleDTO.setProducto(detalle.getProducto());
         detalleDTO.setPrecio(detalle.getPrecio());
         detalleDTO.setImagenPrincipal(imagenPrincipal);
@@ -99,6 +100,7 @@ public class DetalleService extends BaseService<Detalle, Long, DetalleRepository
     public DetalleDTO convertirADTO(Detalle detalle) {
         DetalleDTO dto = new DetalleDTO();
         dto.setId(detalle.getId());
+        dto.setDisponible(detalle.isDisponible());
         dto.setProducto(detalle.getProducto());
         dto.setPrecio(detalle.getPrecio());
 
