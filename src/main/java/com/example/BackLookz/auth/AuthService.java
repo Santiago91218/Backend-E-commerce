@@ -46,7 +46,7 @@ public class AuthService {
                 .nombre(request.getNombre())
                 .email(request.getEmail())
                 .contrasenia(passwordEncoder.encode(request.getContrasenia()))
-                .rol(TipoUsuario.CLIENTE) // o ADMINISTRADOR / CLIENTE según el caso
+                .rol(TipoUsuario.CLIENTE)
                 .dni(request.getDni())
                 .build();
         usuario.setDisponible(true);

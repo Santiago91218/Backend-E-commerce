@@ -52,6 +52,15 @@ public class DetalleService extends BaseService<Detalle, Long, DetalleRepository
         }
     }
 
+    @Transactional
+    public List<Detalle> obtenerDetallesPorProducto(Long idProducto) throws Exception{
+        try{
+            return repository.findByProductoId(idProducto);
+        }catch (Exception e){
+            throw new Exception("Error al obtener detalles: "+ e.getMessage());
+        }
+    }
+
 
     public DetalleDTO obtenerDetalleDTO(Long id) throws Exception {
 

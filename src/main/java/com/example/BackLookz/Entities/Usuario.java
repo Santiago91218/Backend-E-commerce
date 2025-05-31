@@ -32,7 +32,7 @@ public class Usuario extends Base implements UserDetails {
 
     private String email;
 
-    @Min(10000000)
+    @Min(1000000)
     @Max(99999999)
     @NotNull(message = "El D.N.I no puede ser null")
     private int dni;

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("lookz")
 public abstract class BaseController<T,ID, Repo extends BaseRepository<T,ID>,Service extends BaseService<T,ID,Repo>>{

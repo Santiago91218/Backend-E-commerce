@@ -25,4 +25,6 @@ public interface DetalleRepository extends BaseRepository<Detalle, Long> {
     @Query("SELECT d FROM Detalle d WHERE d.producto.tipoProducto = :tipo AND d.producto.generoProducto = :genero AND d.estado = true AND d.id <> :id")
     List<Detalle> findByRelacionados(TipoProducto tipo, GeneroProducto genero,Long id);
 
+    List<Detalle> findByProductoId(Long productoId);
+
 }

@@ -38,6 +38,16 @@ public class DetalleController extends BaseController<Detalle, Long, DetalleRepo
         }
     }
 
+    @GetMapping("/{productoId}/detalles")
+    public ResponseEntity<?> obtenerDetallesPorProducto(@PathVariable Long productoId) {
+        try {
+            List<Detalle> detalles = service.obtenerDetallesPorProducto(productoId);
+            return ResponseEntity.ok(detalles);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error al obtener detalles: " + e.getMessage());
+        }
+    }
+
     @GetMapping("relacionados")
     public ResponseEntity<?> filtrarProductosRelacionados(TipoProducto tipo, GeneroProducto genero,Long id) {
         try{
