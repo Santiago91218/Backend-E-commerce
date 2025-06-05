@@ -4,9 +4,10 @@ import com.example.BackLookz.DTO.UsuarioDTO;
 import com.example.BackLookz.Entities.Usuario;
 import com.example.BackLookz.Repositories.UsuarioRepository;
 import com.example.BackLookz.Services.UsuarioService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RequestMapping("usuarios")
@@ -44,6 +45,17 @@ public class UsuarioController extends BaseController<Usuario,Long, UsuarioRepos
             return ResponseEntity.ok(actualizado);
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Error al actualizar el usuario: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/paginado")
+    public ResponseEntity<Page<Usuario>> obtenerCategoriasPaginado(
+            Pageable pageable) {
+        try {
+            Page<Usuario> pagina = service.obtenerPaginado(pageable);
+            return ResponseEntity.ok(pagina);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
         }
     }
 

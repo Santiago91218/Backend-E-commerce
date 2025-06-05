@@ -5,6 +5,8 @@ import com.example.BackLookz.Entities.Direccion;
 import com.example.BackLookz.Entities.Usuario;
 import com.example.BackLookz.Repositories.DireccionRepository;
 import com.example.BackLookz.Repositories.UsuarioRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
@@ -40,6 +42,14 @@ public class UsuarioService extends BaseService<Usuario,Long, UsuarioRepository>
 
         usuario.setDirecciones(direccionesUser);
         return repository.save(usuario);
+    }
+
+    public Page<Usuario> obtenerPaginado(Pageable pageable) throws Exception {
+        try {
+            return repository.findAll(pageable);
+        } catch (Exception e) {
+            throw new Exception("Error al obtener categorías paginadas: " + e.getMessage());
+        }
     }
 
 

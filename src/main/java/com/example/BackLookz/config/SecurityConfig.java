@@ -34,25 +34,25 @@ public class SecurityConfig {
                         .requestMatchers("/auth/**").permitAll()
 
                         // Productos
-                        .requestMatchers(HttpMethod.GET, "/productos/**").hasAnyRole("CLIENTE", "ADMINISTRADOR")
+                        .requestMatchers(HttpMethod.GET, "/productos/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/productos/**").hasRole("ADMINISTRADOR")
                         .requestMatchers(HttpMethod.PUT, "/productos/**").hasRole("ADMINISTRADOR")
                         .requestMatchers(HttpMethod.DELETE, "/productos/**").hasRole("ADMINISTRADOR")
 
                         // Categorías
-                        .requestMatchers(HttpMethod.GET, "/categorias/**").hasAnyRole("CLIENTE", "ADMINISTRADOR")
+                        .requestMatchers(HttpMethod.GET, "/categorias/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/categorias/**").hasRole("ADMINISTRADOR")
                         .requestMatchers(HttpMethod.PUT, "/categorias/**").hasRole("ADMINISTRADOR")
                         .requestMatchers(HttpMethod.DELETE, "/categorias/**").hasRole("ADMINISTRADOR")
 
                         // Descuentos
-                        .requestMatchers(HttpMethod.GET, "/descuentos/**").hasAnyRole("CLIENTE", "ADMINISTRADOR")
+                        .requestMatchers(HttpMethod.GET, "/descuentos/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/descuentos/**").hasRole("ADMINISTRADOR")
                         .requestMatchers(HttpMethod.PUT, "/descuentos/**").hasRole("ADMINISTRADOR")
                         .requestMatchers(HttpMethod.DELETE, "/descuentos/**").hasRole("ADMINISTRADOR")
 
                         // Detalle
-                        .requestMatchers(HttpMethod.GET, "/detalles/**").hasAnyRole("CLIENTE","ADMINISTRADOR")
+                        .requestMatchers(HttpMethod.GET, "/detalles/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/detalles/**").hasRole("ADMINISTRADOR")
                         .requestMatchers(HttpMethod.PUT, "/detalles/**").hasRole("ADMINISTRADOR")
                         .requestMatchers(HttpMethod.DELETE, "/detalles/**").hasRole("ADMINISTRADOR")
@@ -65,7 +65,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/direcciones/**").hasRole("CLIENTE")
 
                         // Imágenes
-                        .requestMatchers(HttpMethod.GET, "/imagenes/**").hasAnyRole("CLIENTE", "ADMINISTRADOR")
+                        .requestMatchers(HttpMethod.GET, "/imagenes/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/imagenes/**").hasRole("ADMINISTRADOR")
                         .requestMatchers(HttpMethod.PUT, "/imagenes/**").hasRole("ADMINISTRADOR")
                         .requestMatchers(HttpMethod.DELETE, "/imagenes/**").hasRole("ADMINISTRADOR")
@@ -83,13 +83,13 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/ordenes-compra-detalle/**").hasRole("ADMINISTRADOR")
 
                         // Precio
-                        .requestMatchers(HttpMethod.GET, "/precios/**").hasAnyRole("CLIENTE", "ADMINISTRADOR")
+                        .requestMatchers(HttpMethod.GET, "/precios/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/precios/**").hasRole("ADMINISTRADOR")
                         .requestMatchers(HttpMethod.PUT, "/precios/**").hasRole("ADMINISTRADOR")
                         .requestMatchers(HttpMethod.DELETE, "/precios/**").hasRole("ADMINISTRADOR")
 
                         // Talle
-                        .requestMatchers(HttpMethod.GET, "/talles/**").hasAnyRole("CLIENTE", "ADMINISTRADOR")
+                        .requestMatchers(HttpMethod.GET, "/talles/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/talles/**").hasRole("ADMINISTRADOR")
                         .requestMatchers(HttpMethod.PUT, "/talles/**").hasRole("ADMINISTRADOR")
                         .requestMatchers(HttpMethod.DELETE, "/talles/**").hasRole("ADMINISTRADOR")
