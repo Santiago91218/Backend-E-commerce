@@ -61,7 +61,7 @@ public class SecurityConfig {
                         // Direcciones (CLIENTE puede ver/crear las suyas)
                         .requestMatchers(HttpMethod.GET, "/direcciones/**").hasAnyRole("CLIENTE","ADMINISTRADOR")
                         .requestMatchers(HttpMethod.POST, "/direcciones/**").hasAnyRole("CLIENTE","ADMINISTRADOR")
-                        .requestMatchers(HttpMethod.PUT, "/direcciones/**").hasRole("CLIENTE")
+                        .requestMatchers(HttpMethod.PUT, "/direcciones/**").hasAnyRole("CLIENTE","ADMINISTRADOR")
                         .requestMatchers(HttpMethod.DELETE, "/direcciones/**").hasRole("CLIENTE")
 
                         // Imágenes

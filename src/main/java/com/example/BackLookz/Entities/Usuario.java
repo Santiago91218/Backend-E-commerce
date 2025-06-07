@@ -38,7 +38,12 @@ public class Usuario extends Base implements UserDetails {
     @NotNull(message = "El D.N.I no puede ser null")
     private int dni;
 
-    @ManyToMany(mappedBy = "usuarios")
+    @ManyToMany
+    @JoinTable(
+            name = "usuario_direccion",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "direccion_id")
+    )
     private List<Direccion> direcciones = new ArrayList<>();
 
     @OneToMany(mappedBy = "usuario")

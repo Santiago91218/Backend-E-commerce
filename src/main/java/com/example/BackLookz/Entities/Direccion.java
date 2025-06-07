@@ -1,5 +1,6 @@
 package com.example.BackLookz.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -38,12 +39,8 @@ public class Direccion extends Base{
     private String codigoPostal;
 
 
-   @ManyToMany
-    @JoinTable(
-            name = "usuario_direccion",
-            joinColumns = @JoinColumn(name = "usuario_id"),
-            inverseJoinColumns = @JoinColumn(name = "direccion_id")
-    )
+    @ManyToMany(mappedBy = "direcciones")
+    @JsonIgnore
     private List<Usuario> usuarios = new ArrayList<>();
 
 }
