@@ -58,6 +58,16 @@ public class DetalleController extends BaseController<Detalle, Long, DetalleRepo
         }
     }
 
+    @GetMapping("destacados")
+    public ResponseEntity<?> getProductsDestacados() {
+        try{
+            List<DetalleDTO> productos = service.obtenerDetallesConDescuentoYDestacados();
+            return ResponseEntity.ok(productos);
+        }catch (Exception e){
+            return  ResponseEntity.status(500).body("Error al obtenr destacados: "+e.getMessage());
+        }
+    }
+
     @GetMapping("/DTO/{id}")
     public ResponseEntity<?> obtenerDetallePorId(@PathVariable Long id) {
         try {

@@ -27,4 +27,12 @@ public interface DetalleRepository extends BaseRepository<Detalle, Long> {
 
     List<Detalle> findByProductoId(Long productoId);
 
+    // Método para obtener detalles con descuento y destacados
+    @Query("SELECT d FROM Detalle d " +
+            "JOIN d.precio p " +
+            "LEFT JOIN p.descuento desc " +
+            "WHERE d.destacado = true " +
+            "OR (desc IS NOT NULL AND CURRENT_DATE BETWEEN desc.fechaInicio AND desc.fechaFin)")
+    List<Detalle> findDetallesConDescuentoDestacados();
+
 }

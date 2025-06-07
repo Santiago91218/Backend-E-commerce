@@ -41,4 +41,6 @@ public class Detalle extends Base {
 
     private String descripcion;
 
+    private boolean destacado = false;
+
 }

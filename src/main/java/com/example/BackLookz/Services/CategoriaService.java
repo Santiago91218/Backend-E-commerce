@@ -24,9 +24,9 @@ public class CategoriaService extends BaseService<Categoria,Long,CategoriaReposi
 
     public Page<Categoria> obtenerPaginado(Pageable pageable) throws Exception {
         try {
-            return repository.findAll(pageable);
+            return repository.findByDisponibleTrue(pageable);
         } catch (Exception e) {
-            throw new Exception("Error al obtener categorías paginadas: " + e.getMessage());
+            throw new Exception("Error al obtener categorias paginadas: " + e.getMessage());
         }
     }
 

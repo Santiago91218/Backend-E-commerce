@@ -53,6 +53,20 @@ public class DetalleService extends BaseService<Detalle, Long, DetalleRepository
     }
 
     @Transactional
+    public List<DetalleDTO> obtenerDetallesConDescuentoYDestacados() throws Exception{
+        try{
+            List<Detalle> detalles = repository.findDetallesConDescuentoDestacados();
+            return detalles.stream()
+                    .map(this::convertirADTO)
+                    .collect(Collectors.toList());
+        }catch (Exception e){
+            throw new Exception("Error al filtrar relacionados: "+e.getMessage());
+        }
+    }
+
+
+
+    @Transactional
     public List<Detalle> obtenerDetallesPorProducto(Long idProducto) throws Exception{
         try{
             return repository.findByProductoId(idProducto);

@@ -1,11 +1,14 @@
 package com.example.BackLookz.Entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -29,5 +32,9 @@ public class OrdenCompra extends Base {
     @ManyToOne
     @JoinColumn(name = "direccion_envio_id")
     private Direccion  direccionEnvio;
+
+    @OneToMany(mappedBy = "ordenCompra", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<OrdenCompraDetalle> detalles = new ArrayList<>();
 
 }

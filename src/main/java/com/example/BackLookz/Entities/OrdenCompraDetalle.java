@@ -1,5 +1,6 @@
 package com.example.BackLookz.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -15,6 +16,7 @@ public class OrdenCompraDetalle extends Base {
 
     @ManyToOne
     @JoinColumn(name = "orden_compra_id")
+    @JsonBackReference
     private OrdenCompra ordenCompra;
 
     @ManyToOne

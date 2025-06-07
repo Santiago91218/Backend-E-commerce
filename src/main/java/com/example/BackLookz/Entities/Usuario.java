@@ -1,6 +1,7 @@
 package com.example.BackLookz.Entities;
 
 import com.example.BackLookz.Entities.enums.TipoUsuario;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -39,6 +40,10 @@ public class Usuario extends Base implements UserDetails {
 
     @ManyToMany(mappedBy = "usuarios")
     private List<Direccion> direcciones = new ArrayList<>();
+
+    @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
+    private List<OrdenCompra> ordenes = new ArrayList<>();
 
     // MÉTODOS DE SPRING SECURITY
 

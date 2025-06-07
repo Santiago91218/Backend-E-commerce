@@ -60,7 +60,7 @@ public class SecurityConfig {
 
                         // Direcciones (CLIENTE puede ver/crear las suyas)
                         .requestMatchers(HttpMethod.GET, "/direcciones/**").hasAnyRole("CLIENTE","ADMINISTRADOR")
-                        .requestMatchers(HttpMethod.POST, "/direcciones/**").hasRole("CLIENTE")
+                        .requestMatchers(HttpMethod.POST, "/direcciones/**").hasAnyRole("CLIENTE","ADMINISTRADOR")
                         .requestMatchers(HttpMethod.PUT, "/direcciones/**").hasRole("CLIENTE")
                         .requestMatchers(HttpMethod.DELETE, "/direcciones/**").hasRole("CLIENTE")
 
@@ -72,7 +72,7 @@ public class SecurityConfig {
 
                         // OrdenCompra
                         .requestMatchers(HttpMethod.GET, "/ordenes-compra/**").hasAnyRole("CLIENTE", "ADMINISTRADOR")
-                        .requestMatchers(HttpMethod.POST, "/ordenes-compra/**").hasRole("CLIENTE")
+                        .requestMatchers(HttpMethod.POST, "/ordenes-compra/**").hasAnyRole("CLIENTE", "ADMINISTRADOR")
                         .requestMatchers(HttpMethod.PUT, "/ordenes-compra/**").hasAnyRole("CLIENTE", "ADMINISTRADOR")
                         .requestMatchers(HttpMethod.DELETE, "/ordenes-compra/**").hasRole("CLIENTE")
 

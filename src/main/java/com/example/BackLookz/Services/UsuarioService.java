@@ -1,6 +1,7 @@
 package com.example.BackLookz.Services;
 
 import com.example.BackLookz.DTO.UsuarioDTO;
+import com.example.BackLookz.Entities.Categoria;
 import com.example.BackLookz.Entities.Direccion;
 import com.example.BackLookz.Entities.Usuario;
 import com.example.BackLookz.Repositories.DireccionRepository;
@@ -46,9 +47,9 @@ public class UsuarioService extends BaseService<Usuario,Long, UsuarioRepository>
 
     public Page<Usuario> obtenerPaginado(Pageable pageable) throws Exception {
         try {
-            return repository.findAll(pageable);
+            return repository.findByDisponibleTrue(pageable);
         } catch (Exception e) {
-            throw new Exception("Error al obtener categorías paginadas: " + e.getMessage());
+            throw new Exception("Error al obtener ususarios paginados: " + e.getMessage());
         }
     }
 

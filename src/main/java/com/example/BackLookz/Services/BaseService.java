@@ -22,7 +22,7 @@ public abstract class BaseService<T,ID,Repo extends BaseRepository<T,ID>> {
 
     public List<T> obtenerTodos() throws Exception{
         try {
-            return repository.findAll();
+            return repository.findByDisponibleTrue();
         }catch (Exception e){
             throw new Exception("Error al buscar todos:"+e.getMessage());
         }
@@ -56,14 +56,6 @@ public abstract class BaseService<T,ID,Repo extends BaseRepository<T,ID>> {
             throw new Exception("Error al actualizar: "+e.getMessage());
         }
     }
-
-    /*public void eliminarPorId(ID id) throws Exception {
-        try{
-            repository.deleteById(id);
-        }catch (Exception e){
-            throw new Exception("Error al eliminar: "+e.getMessage());
-        }
-    }*/
 
     public void eliminarPorId(ID id) throws Exception {
         try {
