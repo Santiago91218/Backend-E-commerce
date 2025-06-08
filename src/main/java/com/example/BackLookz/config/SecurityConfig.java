@@ -59,7 +59,7 @@ public class SecurityConfig {
 
 
                         // Direcciones (CLIENTE puede ver/crear las suyas)
-                        .requestMatchers(HttpMethod.GET, "/direcciones/**").hasAnyRole("CLIENTE","ADMINISTRADOR")
+                        .requestMatchers(HttpMethod.GET, "/direcciones/**").hasRole("CLIENTE")
                         .requestMatchers(HttpMethod.POST, "/direcciones/**").hasAnyRole("CLIENTE","ADMINISTRADOR")
                         .requestMatchers(HttpMethod.PUT, "/direcciones/**").hasAnyRole("CLIENTE","ADMINISTRADOR")
                         .requestMatchers(HttpMethod.DELETE, "/direcciones/**").hasRole("CLIENTE")
@@ -98,6 +98,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/usuarios/**").hasAnyRole("CLIENTE","ADMINISTRADOR")
                         .requestMatchers(HttpMethod.PUT, "/usuarios/**").hasAnyRole("CLIENTE","ADMINISTRADOR")
                         .requestMatchers(HttpMethod.DELETE, "/usuarios/**").hasAnyRole("CLIENTE","ADMINISTRADOR")
+
+                        // MercadoPago
+                        .requestMatchers(HttpMethod.POST, "/api/mercadopago/**").hasAnyRole("CLIENTE","ADMINISTRADOR")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session

@@ -14,33 +14,42 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="direcciones")
-public class Direccion extends Base{
+@Table(name = "direcciones")
+public class Direccion extends Base {
+
+    @NotNull(message = "La calle no puede ser null")
+    @NotBlank(message = "La calle no puede estar vacía")
+    private String calle;
+
+    @NotNull(message = "El número no puede ser null")
+    @NotBlank(message = "El número no puede estar vacío")
+    private String numero;
 
     @NotNull(message = "La localidad no puede ser null")
-    @NotBlank(message = "La localidad no puede estar vacio")
+    @NotBlank(message = "La localidad no puede estar vacía")
     private String localidad;
 
-    @NotNull(message = "El pais no puede ser null")
-    @NotBlank(message = "El pais no puede estar vacio")
+    @NotNull(message = "El país no puede ser null")
+    @NotBlank(message = "El país no puede estar vacío")
     private String pais;
 
     @NotNull(message = "La provincia no puede ser null")
-    @NotBlank(message = "La provincia no puede estar vacio")
+    @NotBlank(message = "La provincia no puede estar vacía")
     private String provincia;
 
     @NotNull(message = "El departamento no puede ser null")
-    @NotBlank(message = "El departamento no puede estar vacio")
+    @NotBlank(message = "El departamento no puede estar vacío")
     private String departamento;
 
-    @NotNull(message = "El codigoPostal no puede ser null")
-    @NotBlank(message = "El codigoPostal no puede estar vacio")
+    @NotNull(message = "El código postal no puede ser null")
+    @NotBlank(message = "El código postal no puede estar vacío")
     @Column(name = "codigo_postal")
     private String codigoPostal;
-
 
     @ManyToMany(mappedBy = "direcciones")
     @JsonIgnore
     private List<Usuario> usuarios = new ArrayList<>();
 
+    @Transient
+    private Usuario usuario;
 }
