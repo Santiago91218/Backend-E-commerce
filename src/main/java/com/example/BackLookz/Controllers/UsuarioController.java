@@ -1,6 +1,7 @@
 package com.example.BackLookz.Controllers;
 
 import com.example.BackLookz.DTO.UsuarioDTO;
+import com.example.BackLookz.Entities.Direccion;
 import com.example.BackLookz.Entities.Usuario;
 import com.example.BackLookz.Repositories.UsuarioRepository;
 import com.example.BackLookz.Services.UsuarioService;
@@ -59,4 +60,15 @@ public class UsuarioController extends BaseController<Usuario,Long, UsuarioRepos
         }
     }
 
+    @GetMapping("/{id}/direcciones")
+    public ResponseEntity<List<Direccion>> obtenerDireccionesUsuario(@PathVariable Long id) {
+        try{
+            List<Direccion> direccionesUser = service.obtenerDireccionesDeUsuario(id);
+            return ResponseEntity.ok(direccionesUser);
+        }catch (Exception e){
+            return ResponseEntity.internalServerError().build();
+
+        }
+
+    }
 }

@@ -53,6 +53,13 @@ public class UsuarioService extends BaseService<Usuario,Long, UsuarioRepository>
         }
     }
 
+    public List<Direccion> obtenerDireccionesDeUsuario(Long usuarioId) {
+        Usuario usuario = repository.findById(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con id: " + usuarioId));
+
+        return usuario.getDirecciones();
+    }
+
 
     public UsuarioDTO obtenerUsuarioDTO(Long id) throws Exception {
 
