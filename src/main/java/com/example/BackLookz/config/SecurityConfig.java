@@ -14,7 +14,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.cors.CorsConfiguration;
+
 import java.util.List;
+
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
@@ -31,6 +33,11 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .cors(withDefaults())
                 .authorizeHttpRequests(auth -> auth
+
+                        // Webhook de Mercado Pago (¡esta es la línea clave!)
+                        .requestMatchers(HttpMethod.POST, "/webhook").permitAll()
+
+                        // Autenticación
                         .requestMatchers("/auth/**").permitAll()
 
                         // Productos
@@ -57,11 +64,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/detalles/**").hasRole("ADMINISTRADOR")
                         .requestMatchers(HttpMethod.DELETE, "/detalles/**").hasRole("ADMINISTRADOR")
 
-
-                        // Direcciones (CLIENTE puede ver/crear las suyas)
+                        // Direcciones
                         .requestMatchers(HttpMethod.GET, "/direcciones/**").hasRole("CLIENTE")
-                        .requestMatchers(HttpMethod.POST, "/direcciones/**").hasAnyRole("CLIENTE","ADMINISTRADOR")
-                        .requestMatchers(HttpMethod.PUT, "/direcciones/**").hasAnyRole("CLIENTE","ADMINISTRADOR")
+                        .requestMatchers(HttpMethod.POST, "/direcciones/**").hasAnyRole("CLIENTE", "ADMINISTRADOR")
+                        .requestMatchers(HttpMethod.PUT, "/direcciones/**").hasAnyRole("CLIENTE", "ADMINISTRADOR")
                         .requestMatchers(HttpMethod.DELETE, "/direcciones/**").hasRole("CLIENTE")
 
                         // Imágenes
@@ -95,12 +101,16 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/talles/**").hasRole("ADMINISTRADOR")
 
                         // Usuario
-                        .requestMatchers(HttpMethod.GET, "/usuarios/**").hasAnyRole("CLIENTE","ADMINISTRADOR")
-                        .requestMatchers(HttpMethod.PUT, "/usuarios/**").hasAnyRole("CLIENTE","ADMINISTRADOR")
-                        .requestMatchers(HttpMethod.DELETE, "/usuarios/**").hasAnyRole("CLIENTE","ADMINISTRADOR")
+                        .requestMatchers(HttpMethod.GET, "/usuarios/**").hasAnyRole("CLIENTE", "ADMINISTRADOR")
+                        .requestMatchers(HttpMethod.PUT, "/usuarios/**").hasAnyRole("CLIENTE", "ADMINISTRADOR")
+                        .requestMatchers(HttpMethod.DELETE, "/usuarios/**").hasAnyRole("CLIENTE", "ADMINISTRADOR")
 
                         // MercadoPago
-                        .requestMatchers(HttpMethod.POST, "/api/mercadopago/**").hasAnyRole("CLIENTE","ADMINISTRADOR")
+                        .requestMatchers(HttpMethod.POST, "/api/mercadopago/**").hasAnyRole("CLIENTE", "ADMINISTRADOR")
+                        .requestMatchers(HttpMethod.GET, "/pago_exitoso").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/pago-fallido").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/pago-pendiente").permitAll()
+
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
@@ -113,7 +123,11 @@ public class SecurityConfig {
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOriginPatterns(List.of("http://localhost:5173"));
+
+        config.setAllowedOriginPatterns(List.of(
+                "http://localhost:5173",
+                "https://phoenix-remain-stocks-lite.trycloudflare.com"
+        ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         config.setAllowCredentials(true);
@@ -122,4 +136,5 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
+
 }

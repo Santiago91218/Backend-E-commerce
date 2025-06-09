@@ -11,6 +11,9 @@ import java.util.*;
 
 @Service
 public class MercadoPagoService {
+    @Value("${MERCADOPAGO_URL_BASE}")
+    private String urlBase;
+
 
     @Value("${MERCADOPAGO_ACCESS_TOKEN}")
     private String accessToken;
@@ -34,6 +37,15 @@ public class MercadoPagoService {
             payload.put("items", itemsList);
             payload.put("payer", Map.of("email", email));
 
+            Map<String, String> backUrls = new HashMap<>();
+            backUrls.put("success", urlBase + "/pago-exitoso");
+            backUrls.put("failure", urlBase + "/pago-fallido");
+            backUrls.put("pending", urlBase + "/pago-pendiente");
+
+            payload.put("back_urls", backUrls);
+            payload.put("auto_return", "approved");
+
+
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             headers.setBearerAuth(accessToken);
@@ -56,6 +68,31 @@ public class MercadoPagoService {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+
+    public Map<String, Object> obtenerPagoPorId(Long id) {
+        try {
+            String url = "https://api.mercadopago.com/v1/payments/" + id;
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setBearerAuth(accessToken);
+            headers.setContentType(MediaType.APPLICATION_JSON);
+
+            HttpEntity<Void> request = new HttpEntity<>(headers);
+
+            ResponseEntity<Map> response = restTemplate.exchange(
+                    url,
+                    HttpMethod.GET,
+                    request,
+                    Map.class
+            );
+
+            return response.getBody();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Map.of("status", "error", "message", "No se pudo consultar el pago");
         }
     }
 }
