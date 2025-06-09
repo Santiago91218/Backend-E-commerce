@@ -2,10 +2,13 @@ package com.example.BackLookz.Controllers;
 
 import com.example.BackLookz.DTO.DetalleDTO;
 import com.example.BackLookz.Entities.Detalle;
+import com.example.BackLookz.Entities.Usuario;
 import com.example.BackLookz.Entities.enums.GeneroProducto;
 import com.example.BackLookz.Entities.enums.TipoProducto;
 import com.example.BackLookz.Repositories.DetalleRepository;
 import com.example.BackLookz.Services.DetalleService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
