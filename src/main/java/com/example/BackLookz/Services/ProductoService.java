@@ -1,6 +1,7 @@
 package com.example.BackLookz.Services;
 
 import com.example.BackLookz.Entities.Producto;
+import com.example.BackLookz.Entities.enums.TipoProducto;
 import com.example.BackLookz.Repositories.DetalleRepository;
 import com.example.BackLookz.Repositories.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class ProductoService extends BaseService<Producto, Long, ProductoRepository> {
@@ -23,6 +26,14 @@ public class ProductoService extends BaseService<Producto, Long, ProductoReposit
             return repository.findByDisponibleTrue(pageable);
         } catch (Exception e) {
             throw new Exception("Error al obtener productos paginados: " + e.getMessage());
+        }
+    }
+
+    public List<Producto> filtrarPorTipoProducto(TipoProducto tipoProducto) throws Exception {
+        try {
+            return repository.findByTipoProducto(tipoProducto);
+        } catch (Exception e) {
+            throw new Exception("Error al filtrar por tipo de producto: " + e.getMessage());
         }
     }
 
