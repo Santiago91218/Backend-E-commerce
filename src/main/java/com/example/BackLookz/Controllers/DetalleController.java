@@ -21,16 +21,6 @@ public class DetalleController extends BaseController<Detalle, Long, DetalleRepo
         super(service);
     }
 
-    @PutMapping("/agregar-stock/{idDetalle}")
-    public ResponseEntity<String> agregarStock(@PathVariable Long idDetalle,@RequestParam int cantidadStock){
-        try {
-            service.agregarStock(idDetalle,cantidadStock);
-            return ResponseEntity.ok("Stock agregado correctamente.");
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Error al agregar stock: " + e.getMessage());
-        }
-    }
-
     @GetMapping("genero-producto")
     public ResponseEntity<?> filtrarPorSexo(@RequestParam GeneroProducto generoProducto){
         try{

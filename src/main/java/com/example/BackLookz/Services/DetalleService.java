@@ -20,15 +20,6 @@ public class DetalleService extends BaseService<Detalle, Long, DetalleRepository
     }
 
     @Transactional
-    public void agregarStock(Long idDetalle, int cantidadStock) throws Exception{
-    try{
-      repository.setStockById(idDetalle,cantidadStock);
-    }catch (Exception e){
-        throw new Exception("Error al agregar stock: "+e.getMessage());
-    }
-    }
-
-    @Transactional
     public List<DetalleDTO> filtrarPorSexo(GeneroProducto generoProducto) throws Exception{
         try{
            List<Detalle> detalles = repository.findBySexo(generoProducto);
@@ -69,7 +60,7 @@ public class DetalleService extends BaseService<Detalle, Long, DetalleRepository
     @Transactional
     public List<Detalle> obtenerDetallesPorProducto(Long idProducto) throws Exception{
         try{
-            return repository.findByProductoId(idProducto);
+            return repository.findByProductoIdAndDisponibleTrue(idProducto);
         }catch (Exception e){
             throw new Exception("Error al obtener detalles: "+ e.getMessage());
         }
@@ -105,7 +96,7 @@ public class DetalleService extends BaseService<Detalle, Long, DetalleRepository
     }
 
     public List<DetalleDTO> obtenerTodosLosDetalleDTO() {
-        List<Detalle> detalles = repository.findAll();
+        List<Detalle> detalles = repository.findByDisponibleTrue();
         return detalles.stream()
                 .map(this::convertirADTO)
                 .collect(Collectors.toList());
