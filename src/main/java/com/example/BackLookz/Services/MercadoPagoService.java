@@ -37,13 +37,13 @@ public class MercadoPagoService {
             payload.put("items", itemsList);
             payload.put("payer", Map.of("email", email));
 
-            Map<String, String> backUrls = new HashMap<>();
+        /*    Map<String, String> backUrls = new HashMap<>();
             backUrls.put("success", urlBase + "/pago-exitoso");
             backUrls.put("failure", urlBase + "/pago-fallido");
             backUrls.put("pending", urlBase + "/pago-pendiente");
 
             payload.put("back_urls", backUrls);
-            payload.put("auto_return", "approved");
+            payload.put("auto_return", "approved");*/
 
 
             HttpHeaders headers = new HttpHeaders();

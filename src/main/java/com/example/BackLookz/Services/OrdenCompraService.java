@@ -24,4 +24,16 @@ public class OrdenCompraService extends BaseService<OrdenCompra, Long, OrdenComp
         }
     }
 
+    @Override
+    @Transactional
+    public OrdenCompra crear(OrdenCompra entity) throws Exception {
+        try {
+            entity.setFechaCompra(java.time.LocalDate.now());
+            return super.crear(entity);
+        } catch (Exception e) {
+            throw new Exception("Error al crear orden de compra: " + e.getMessage());
+        }
+    }
+
+
 }
