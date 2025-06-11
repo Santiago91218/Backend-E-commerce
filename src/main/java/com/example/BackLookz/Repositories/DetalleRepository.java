@@ -27,7 +27,7 @@ public interface DetalleRepository extends BaseRepository<Detalle, Long> {
             "JOIN d.precio p " +
             "LEFT JOIN p.descuento desc " +
             "WHERE d.destacado = true " +
-            "OR (desc IS NOT NULL AND CURRENT_DATE BETWEEN desc.fechaInicio AND desc.fechaFin)")
+            "OR (desc IS NOT NULL AND CURRENT_DATE BETWEEN desc.fechaInicio AND desc.fechaFin) AND d.disponible = true")
     List<Detalle> findDetallesConDescuentoDestacados();
 
     @Modifying
