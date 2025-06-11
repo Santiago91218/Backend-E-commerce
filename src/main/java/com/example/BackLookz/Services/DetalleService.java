@@ -66,6 +66,17 @@ public class DetalleService extends BaseService<Detalle, Long, DetalleRepository
         }
     }
 
+    public List<DetalleDTO> filtrarPorRangoDePrecio(Double min, Double max) throws Exception {
+        try {
+            List<Detalle> detalles = repository.findByPrecioVentaBetween(min, max);
+            return detalles.stream()
+                    .map(this::convertirADTO)
+                    .collect(Collectors.toList());
+        } catch (Exception e) {
+            throw new Exception("Error al filtrar detalles por precio: " + e.getMessage());
+        }
+    }
+
 
     public DetalleDTO obtenerDetalleDTO(Long id) throws Exception {
 
@@ -90,6 +101,7 @@ public class DetalleService extends BaseService<Detalle, Long, DetalleRepository
         detalleDTO.setDisponible(detalle.isDisponible());
         detalleDTO.setProducto(detalle.getProducto());
         detalleDTO.setPrecio(detalle.getPrecio());
+        detalleDTO.setTalle(detalle.getTalle());
         detalleDTO.setImagenPrincipal(imagenPrincipal);
 
         return detalleDTO;
@@ -108,6 +120,7 @@ public class DetalleService extends BaseService<Detalle, Long, DetalleRepository
         dto.setDisponible(detalle.isDisponible());
         dto.setProducto(detalle.getProducto());
         dto.setPrecio(detalle.getPrecio());
+        dto.setTalle(detalle.getTalle());
 
         if (!detalle.getImagenes().isEmpty()) {
             dto.setImagenPrincipal(detalle.getImagenes().get(0));

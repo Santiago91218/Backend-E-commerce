@@ -41,6 +41,18 @@ public class DetalleController extends BaseController<Detalle, Long, DetalleRepo
         }
     }
 
+    @GetMapping("/filtrar-por-precio")
+    public ResponseEntity<?> filtrarPorRangoDePrecio(
+            @RequestParam Double min,
+            @RequestParam Double max) {
+        try {
+            List<DetalleDTO> resultado = service.filtrarPorRangoDePrecio(min, max);
+            return ResponseEntity.ok(resultado);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+        }
+    }
+
     @GetMapping("relacionados")
     public ResponseEntity<?> filtrarProductosRelacionados(TipoProducto tipo, GeneroProducto genero,Long id) {
         try{

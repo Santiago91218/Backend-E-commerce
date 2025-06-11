@@ -35,4 +35,7 @@ public interface DetalleRepository extends BaseRepository<Detalle, Long> {
     @Query("UPDATE Detalle d SET d.disponible = false WHERE d.producto.id = :productoId")
     void marcarDetallesComoInactivosPorProducto(@Param("productoId") Long productoId);
 
+    @Query("SELECT d FROM Detalle d WHERE d.precio.precioVenta BETWEEN :min AND :max")
+    List<Detalle> findByPrecioVentaBetween(@Param("min") Double min, @Param("max") Double max);
+
 }
