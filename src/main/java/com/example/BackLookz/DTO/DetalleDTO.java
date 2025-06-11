@@ -9,6 +9,7 @@ import lombok.Data;
 public class DetalleDTO {
     private Long id;
     private boolean disponible;
+    private String color;
     private Producto producto;
     private Precio precio;
     private Imagen imagenPrincipal;

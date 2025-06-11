@@ -6,6 +6,8 @@ import com.example.BackLookz.Repositories.DetalleRepository;
 import com.example.BackLookz.Repositories.ImagenRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,11 +34,24 @@ public class ImagenService extends BaseService<Imagen, Long, ImagenRepository> {
         Detalle detalle = detalleOpt.get();
 
 
-        if (detalle.getImagenes().size() >= 5) {
-            throw new Exception("El detalle no puede tener mas de 5 imagenes");
+        long cantidadDisponibles = detalle.getImagenes()
+                .stream()
+                .filter(Imagen::isDisponible)
+                .count();
+
+        if (cantidadDisponibles >= 5) {
+            throw new Exception("El detalle no puede tener más de 5 imágenes disponibles");
         }
 
         return repository.save(imagen);
+    }
+
+    public List<Imagen> obtenerImagenesPorDetalle(Long idDetalle) throws Exception {
+        try {
+            return repository.findByDetalleId(idDetalle);
+        } catch (Exception e) {
+            throw new Exception("Error al obtener imágenes del detalle: " + e.getMessage(), e);
+        }
     }
 
 }
